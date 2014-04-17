@@ -1,37 +1,39 @@
 <?php 
-
-	//include curl.php
-
 	require_once("curl.php");
+	require_once("globals.php");
 
 	$data = array("ucid" => $_POST['ucid'], "pass" => $_POST['pass']);
 
-  	//define URLs
-	$url = "http://osl81.njit.edu/~vp78/las/back_test/back.php";
-	//$url = "http://osl81.njit.edu/~sjt5/las/back.php";
+  	// define URLs
+	$url =  $back_url . "/login.php";
 
 
 	$result = CurlPost($data, $url);
-
+  
 	//decode returned json
 	$data = json_decode($result);
 
-
 	//check if login was successfull
-	if($data->	Login == "Success"){
-		//do some session work
+	if($data->allow == "Yes"){
+		// do some session work
 		session_start(); // start up session! 
-		$_SESSION['type'] = "professor"; // store session data
-		$_SESSION['ucid'] = $data->Name;
+		$sid = session_id();
+		$_SESSION['type'] = "teacher"; // store session data
+		$_SESSION['ucid'] = $data->ucid;
+		$_SESSION['time'] = time();
+		$_SESSION['name'] = $data->name;
+		$_SESSION['sid'] = $sid;
+		$_SESSION['allow'] = "Yes";
 
-		echo json_encode($data);
 
 
-	}else if($data->Login == "Failed"){
+		echo json_encode($_SESSION);
+	}else if($data->allow == "No"){
+		//redirect to a ivalid login
+		//does the front redirect or back?
 		echo json_encode($data);
 	}
 
 
-	curl_close($ch);
 
 ?>

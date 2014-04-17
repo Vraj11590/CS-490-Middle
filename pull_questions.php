@@ -11,7 +11,7 @@
 	
 	if($_POST['flag'] == "Pull Questions"){
 	
-			$url = "http://osl82.njit.edu/~sjt5/las/testbank.php";
+			$url = "http://back.codingcat.vj/testbank.php";
 
 		
 			$result = CurlPost($data, $url);
