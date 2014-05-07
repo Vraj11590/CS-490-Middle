@@ -1,6 +1,9 @@
 <?php 
+	include 'session_handler.php';
 
-	$s = $_POST['sid'];
-	//echo $s."logging out";
-	echo json_encode(array('status'=>"out"));
+
+	$token = $_POST['token'];
+	$do = on_session_destroy($token);
+
+	echo $do;
 ?>

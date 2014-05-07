@@ -13,6 +13,7 @@
 		curl_setopt ($ch, CURLOPT_POST, true);
 		curl_setopt ($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+	
 		//curl_setopt ($ch, CURLOPT_HEADER, false);
 		//header has to be commented out when sending multidimensional array
 	   //curl_setopt ($ch, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data") );
@@ -20,7 +21,10 @@
 
 		$result = curl_exec($ch);
 
+		//print_r($result);
+
 		return $result;
+		curl_close();
 
 	}
  ?>
